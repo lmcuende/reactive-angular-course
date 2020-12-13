@@ -5,6 +5,7 @@ import {catchError, delay, delayWhen, filter, finalize, map, retryWhen, shareRep
 import {HttpClient} from '@angular/common/http';
 import {CourseDialogComponent} from '../course-dialog/course-dialog.component';
 import { CoursesService } from '../services/courses.service';
+import { LoadingService } from '../loading/loading.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private coursesService: CoursesService) {
+    private coursesService: CoursesService,
+    private loadingService: LoadingService) {
 
   }
 
@@ -35,11 +37,11 @@ export class HomeComponent implements OnInit {
         map(courses => courses.sort(sortCoursesBySeqNo))
       );
 
-    courses$.subscribe(val => console.log(val));
     this.beginnerCourses$ = courses$
       .pipe(
         map(courses => courses.filter(course => course.category == "BEGINNER"))
       );
+      
     this.advancedCourses$ = courses$
       .pipe(
         map(courses => courses.filter(course => course.category == "ADVANCED"))
