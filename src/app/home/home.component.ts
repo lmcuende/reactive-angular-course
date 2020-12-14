@@ -27,24 +27,24 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reloadCourses();
-    
+    this.reloadCourses();  
   }
 
   reloadCourses() {
-    this.loadingService.loadingOn();
+
     const courses$ = this.coursesService.loadAllCourses()
       .pipe(
-        map(courses => courses.sort(sortCoursesBySeqNo)),
-        finalize(() => this.loadingService.loadingOff())
+        map(courses => courses.sort(sortCoursesBySeqNo))
       );
 
-    this.beginnerCourses$ = courses$
+    const loadCourses$ = this.loadingService.showLoaderUntilCompleted(courses$);
+
+    this.beginnerCourses$ = loadCourses$
       .pipe(
         map(courses => courses.filter(course => course.category == "BEGINNER"))
       );
       
-    this.advancedCourses$ = courses$
+    this.advancedCourses$ = loadCourses$
       .pipe(
         map(courses => courses.filter(course => course.category == "ADVANCED"))
       );
