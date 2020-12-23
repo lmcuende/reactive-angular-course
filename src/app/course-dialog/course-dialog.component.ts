@@ -16,7 +16,7 @@ import { LoadingService } from '../loading/loading.service';
         LoadingService
     ]
 })
-export class CourseDialogComponent implements AfterViewInit {
+export class CourseDialogComponent  {
 
     form: FormGroup;
 
