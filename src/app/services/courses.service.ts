@@ -8,9 +8,7 @@ import { map, shareReplay } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class CoursesService {
-    constructor(
-        private http:HttpClient
-    ) {
+    constructor(private http:HttpClient) {
 
     }
 
